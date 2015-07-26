@@ -330,6 +330,11 @@
 			id="qwickie.command"
 			name="QWickie Command">
 		</command>
+  <command
+        categoryId="qwickie.commands.category"
+        id="qwickie.command.openComponentHierarchy"
+        name="Open Component Hierarchy">
+  </command>
 	</extension>
 	<extension point="org.eclipse.ui.bindings">
 	<!--
@@ -352,4 +357,34 @@
 	<extension point="org.eclipse.ui.startup">
 		<startup class="qwickie.QWickieActivator" />
 	</extension>
+ <extension
+       point="org.eclipse.ui.handlers">
+    <handler
+          class="qwickie.handler.OpenComponentHierarchyHandler"
+          commandId="qwickie.command.openComponentHierarchy">
+       <enabledWhen>
+          <iterate
+                ifEmpty="false">
+             <instanceof
+                   value="org.eclipse.jdt.core.ICompilationUnit">
+             </instanceof>
+          </iterate>
+       </enabledWhen>
+    </handler>
+ </extension>
+ <extension
+       point="org.eclipse.ui.menus">
+    <menuContribution
+          allPopups="false"
+          locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+       <menu
+             icon="qwickie.png"
+             label="QWickie">
+          <command
+                commandId="qwickie.command.openComponentHierarchy"
+                style="push">
+          </command>
+       </menu>
+    </menuContribution>
+ </extension>
 </plugin>
